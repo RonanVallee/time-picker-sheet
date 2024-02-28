@@ -153,22 +153,22 @@ class _TimePickerBodyState extends State<TimePickerBody> {
           children: [
             Expanded(
               child: SizedBox(
+                height: 20,
                 child: Text(
                   provider.hourTitle,
                   style: provider.hourTitleStyle,
                   textAlign: TextAlign.center,
                 ),
-                height: 20,
               ),
             ),
             Expanded(
               child: SizedBox(
+                height: 20,
                 child: Text(
                   provider.minuteTitle,
                   style: provider.minuteTitleStyle,
                   textAlign: TextAlign.center,
                 ),
-                height: 20,
               ),
             ),
           ],
@@ -178,6 +178,7 @@ class _TimePickerBodyState extends State<TimePickerBody> {
           children: [
             Expanded(
               child: SizedBox(
+                height: widget.itemHeight * 3,
                 child: NumberWheel(
                   numbers: _getHours(),
                   itemHeight: widget.itemHeight,
@@ -185,14 +186,11 @@ class _TimePickerBodyState extends State<TimePickerBody> {
                   twoDigits: provider.twoDigit,
                   controller: hourController,
                 ),
-
-                /// show only 3 items in the list as an options.
-                /// the selected option should be on the middle of the list.
-                height: widget.itemHeight * 3,
               ),
             ),
             Expanded(
               child: SizedBox(
+                height: widget.itemHeight * 3,
                 child: NumberWheel(
                   numbers: _getMinutes(),
                   itemHeight: widget.itemHeight,
@@ -200,28 +198,24 @@ class _TimePickerBodyState extends State<TimePickerBody> {
                   twoDigits: provider.twoDigit,
                   controller: minuteController,
                 ),
-
-                /// show only 3 items in the list as an options.
-                /// the selected option should be on the middle of the list.
-                height: widget.itemHeight * 3,
               ),
             ),
           ],
         ),
-        const Expanded(child: SizedBox.shrink()),
+        const SizedBox(height: 12),
         Padding(
           padding: const EdgeInsets.all(16),
           child: SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              child: Text(provider.saveButtonText),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(24),
                 ),
                 backgroundColor: provider.saveButtonColor,
               ), // <-- Radius
               onPressed: () => _onSaved(context),
+              child: provider.saveButtonText,
             ),
           ),
         ),

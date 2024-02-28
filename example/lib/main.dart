@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
         sheetTitle: 'Select meeting schedule',
         minuteTitle: 'Minute',
         hourTitle: 'Hour',
-        saveButtonText: 'Save',
+        saveButtonText: const Text('Save'),
       ),
     );
 
@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ElevatedButton(
               onPressed: () => _openTimePickerSheet(context),
-              child: Text('show time picker sheet'),
+              child: const Text('show time picker sheet'),
             ),
             Text('Time ${dateTimeSelected.hour}:${dateTimeSelected.minute}'),
           ],

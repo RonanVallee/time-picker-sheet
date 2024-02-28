@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 abstract class TimePicker extends StatelessWidget {
-  const TimePicker({Key? key}) : super(key: key);
+  const TimePicker({super.key});
 
   static Future<T?> show<T>({
     required BuildContext context,

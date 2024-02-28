@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show PlatformDispatcher;
 import 'package:flutter/material.dart';
 
 /// This scroll physic have snapping behavior. You can use it in listview or
@@ -9,10 +10,10 @@ class SnappScrollPhysic extends ScrollPhysics {
   final double targetPixelLimit;
 
   const SnappScrollPhysic({
-    ScrollPhysics? parent,
+    super.parent,
     required this.itemHeight,
     this.targetPixelLimit = 3.0,
-  }) : super(parent: parent);
+  });
 
   @override
   ScrollPhysics applyTo(ScrollPhysics? ancestor) {
@@ -32,11 +33,12 @@ class SnappScrollPhysic extends ScrollPhysics {
   double _getTargetPixels(
     ScrollPosition position,
     double velocity,
+    double toleranceVelocity,
   ) {
     double visibleItemPosition = position.pixels / itemHeight;
-    if (velocity < -tolerance.velocity) {
+    if (velocity < -toleranceVelocity) {
       visibleItemPosition -= targetPixelLimit;
-    } else if (velocity > tolerance.velocity) {
+    } else if (velocity > toleranceVelocity) {
       visibleItemPosition += targetPixelLimit;
     }
 
@@ -49,9 +51,19 @@ class SnappScrollPhysic extends ScrollPhysics {
     ScrollMetrics position,
     double velocity,
   ) {
+    final tolerance = toleranceFor(FixedScrollMetrics(
+      minScrollExtent: null,
+      maxScrollExtent: null,
+      pixels: null,
+      viewportDimension: null,
+      axisDirection: AxisDirection.down,
+      devicePixelRatio:
+          PlatformDispatcher.instance.implicitView?.devicePixelRatio ?? 0,
+    ));
     final target = _getTargetPixels(
       position as ScrollPosition,
       velocity,
+      tolerance.velocity,
     );
 
     if (target != position.pixels) {

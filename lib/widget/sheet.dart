@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:time_picker_sheet/widget/composition/body.dart';
 import 'package:time_picker_sheet/widget/composition/header.dart';
@@ -70,7 +71,7 @@ class TimePickerSheet extends TimePicker {
 
   final TextStyle wheelNumberSelectedStyle;
 
-  final String saveButtonText;
+  final Text saveButtonText;
 
   final Color saveButtonColor;
 
@@ -87,7 +88,7 @@ class TimePickerSheet extends TimePicker {
   );
 
   TimePickerSheet({
-    Key? key,
+    super.key,
     required this.sheetTitle,
     required this.minuteTitle,
     required this.hourTitle,
@@ -128,59 +129,66 @@ class TimePickerSheet extends TimePicker {
   })  : assert(minHour >= 0 && minHour <= 24),
         assert(maxHour >= 0 && maxHour <= 24),
         assert(minMinute >= 0 && maxMinute <= 60),
-        assert(maxMinute >= 0 && maxMinute <= 60),
-        super(key: key);
+        assert(maxMinute >= 0 && maxMinute <= 60);
 
   @override
   Widget build(BuildContext context) {
     final halfOfScreen = MediaQuery.of(context).size.height / 2;
 
-    return TimePickerProvider(
-      sheetCloseIcon: sheetCloseIcon,
-      sheetCloseIconColor: sheetCloseIconColor,
-      sheetTitle: sheetTitle,
-      sheetTitleStyle: sheetTitleStyle,
-      minuteTitle: minuteTitle,
-      minuteTitleStyle: minuteTitleStyle,
-      hourTitle: hourTitle,
-      hourTitleStyle: hourTitleStyle,
-      wheelNumberItemStyle: wheelNumberItemStyle,
-      wheelNumberSelectedStyle: wheelNumberSelectedStyle,
-      saveButtonText: saveButtonText,
-      saveButtonColor: saveButtonColor,
-      twoDigit: twoDigit,
-      child: SizedBox(
-        height: halfOfScreen,
-        child: SafeArea(
-          child: Column(
-            children: [
-              const SheetHeader(),
-              const SizedBox(height: 16),
-              Expanded(
-                child: Stack(
-                  children: [
-                    const TimePickerIndicator(),
-                    TimePickerBody(
-                      dateTime: initialDateTime ?? _defaultDateTime,
-                      itemHeight: 40,
+    return ScrollConfiguration(
+      behavior: ScrollConfiguration.of(context).copyWith(
+        dragDevices: {
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.touch,
+        },
+      ),
+      child: TimePickerProvider(
+        sheetCloseIcon: sheetCloseIcon,
+        sheetCloseIconColor: sheetCloseIconColor,
+        sheetTitle: sheetTitle,
+        sheetTitleStyle: sheetTitleStyle,
+        minuteTitle: minuteTitle,
+        minuteTitleStyle: minuteTitleStyle,
+        hourTitle: hourTitle,
+        hourTitleStyle: hourTitleStyle,
+        wheelNumberItemStyle: wheelNumberItemStyle,
+        wheelNumberSelectedStyle: wheelNumberSelectedStyle,
+        saveButtonText: saveButtonText,
+        saveButtonColor: saveButtonColor,
+        twoDigit: twoDigit,
+        child: SizedBox(
+          height: halfOfScreen,
+          child: SafeArea(
+            child: Column(
+              children: [
+                const SheetHeader(),
+                const SizedBox(height: 16),
+                Expanded(
+                  child: Stack(
+                    children: [
+                      const TimePickerIndicator(),
+                      TimePickerBody(
+                        dateTime: initialDateTime ?? _defaultDateTime,
+                        itemHeight: 40,
 
-                      /// normalize the interval to be have positive
-                      /// value if somehow the interval is negative.
-                      minuteInterval: minuteInterval.abs(),
+                        /// normalize the interval to be have positive
+                        /// value if somehow the interval is negative.
+                        minuteInterval: minuteInterval.abs(),
 
-                      /// normalize the interval to be have positive
-                      /// value if somehow the interval is negative.
-                      hourInterval: hourInterval.abs(),
-                      maxHour: maxHour,
-                      minHour: minHour,
-                      maxMinute: maxMinute,
-                      minMinute: minMinute,
-                      visibleItems: 3,
-                    ),
-                  ],
+                        /// normalize the interval to be have positive
+                        /// value if somehow the interval is negative.
+                        hourInterval: hourInterval.abs(),
+                        maxHour: maxHour,
+                        minHour: minHour,
+                        maxMinute: maxMinute,
+                        minMinute: minMinute,
+                        visibleItems: 3,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
