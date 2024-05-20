@@ -49,6 +49,8 @@ class TimePickerSheet extends TimePicker {
   /// don't need to reformat or mapping anything on the screen.
   final bool twoDigit;
 
+  final bool showCloseIcon;
+
   final IconData sheetCloseIcon;
 
   final Color sheetCloseIconColor;
@@ -101,6 +103,7 @@ class TimePickerSheet extends TimePicker {
     this.minMinute = 0,
     this.maxMinute = 60,
     this.twoDigit = true,
+    this.showCloseIcon = true,
     this.sheetCloseIcon = Icons.close,
     this.sheetCloseIconColor = Colors.redAccent,
     this.saveButtonColor = Colors.redAccent,
@@ -161,7 +164,7 @@ class TimePickerSheet extends TimePicker {
           child: SafeArea(
             child: Column(
               children: [
-                const SheetHeader(),
+                SheetHeader(showCloseIcon: showCloseIcon),
                 const SizedBox(height: 16),
                 Expanded(
                   child: Stack(
