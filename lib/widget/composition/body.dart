@@ -202,7 +202,6 @@ class _TimePickerBodyState extends State<TimePickerBody> {
             ),
           ],
         ),
-        const SizedBox(height: 12),
         Padding(
           padding: const EdgeInsets.all(16),
           child: SizedBox(

@@ -11,7 +11,7 @@ class SheetHeader extends StatelessWidget {
     final provider = TimePickerProvider.of(context);
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         mainAxisAlignment:
             showCloseIcon ? MainAxisAlignment.start : MainAxisAlignment.center,
