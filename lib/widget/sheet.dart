@@ -136,8 +136,6 @@ class TimePickerSheet extends TimePicker {
 
   @override
   Widget build(BuildContext context) {
-    final halfOfScreen = MediaQuery.of(context).size.height / 2;
-
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(
         dragDevices: {
@@ -159,39 +157,34 @@ class TimePickerSheet extends TimePicker {
         saveButtonText: saveButtonText,
         saveButtonColor: saveButtonColor,
         twoDigit: twoDigit,
-        child: SizedBox(
-          height: halfOfScreen,
-          child: SafeArea(
-            child: Column(
-              children: [
-                SheetHeader(showCloseIcon: showCloseIcon),
-                const SizedBox(height: 16),
-                Expanded(
-                  child: Stack(
-                    children: [
-                      const TimePickerIndicator(),
-                      TimePickerBody(
-                        dateTime: initialDateTime ?? _defaultDateTime,
-                        itemHeight: 40,
+        child: SafeArea(
+          child: Column(
+            children: [
+              SheetHeader(showCloseIcon: showCloseIcon),
+              const SizedBox(height: 16),
+              Stack(
+                children: [
+                  const TimePickerIndicator(),
+                  TimePickerBody(
+                    dateTime: initialDateTime ?? _defaultDateTime,
+                    itemHeight: 40,
 
-                        /// normalize the interval to be have positive
-                        /// value if somehow the interval is negative.
-                        minuteInterval: minuteInterval.abs(),
+                    /// normalize the interval to be have positive
+                    /// value if somehow the interval is negative.
+                    minuteInterval: minuteInterval.abs(),
 
-                        /// normalize the interval to be have positive
-                        /// value if somehow the interval is negative.
-                        hourInterval: hourInterval.abs(),
-                        maxHour: maxHour,
-                        minHour: minHour,
-                        maxMinute: maxMinute,
-                        minMinute: minMinute,
-                        visibleItems: 3,
-                      ),
-                    ],
+                    /// normalize the interval to be have positive
+                    /// value if somehow the interval is negative.
+                    hourInterval: hourInterval.abs(),
+                    maxHour: maxHour,
+                    minHour: minHour,
+                    maxMinute: maxMinute,
+                    minMinute: minMinute,
+                    visibleItems: 3,
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
